@@ -1,6 +1,5 @@
 FROM openjdk:11
-VOLUME /tmp
+RUN mvnw clean package
 EXPOSE 8080
-ARG JAR_FILE=target/todo_backend.jar
-ADD ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ADD target/todo_backend.jar todo_backend.jar
+ENTRYPOINT ["java","-jar","/todo_backend.jar"]
