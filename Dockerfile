@@ -1,16 +1,6 @@
 FROM openjdk:11
-
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY pom.xml .
-RUN ./mvnw dependency:go-offline -B
-COPY src src
-
-RUN ./mvnw clean package
-
+VOLUME /tmp
 EXPOSE 8080
-
-ADD target/todo_backend.jar todo_backend.jar
-
-ENTRYPOINT ["java","-jar","/todo_backend.jar"]
+ARG JAR_FILE=target/todo_backend.jar
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
